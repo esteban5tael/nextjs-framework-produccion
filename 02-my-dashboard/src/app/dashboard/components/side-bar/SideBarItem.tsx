@@ -10,7 +10,7 @@ export const SideBarItem = ({ item }: { item: SidebarMenuItem }) => {
         <>
             <Link
                 href={item.href}
-                className={`w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 hover:bg-white/5 transition ease-linear duration-150 rounded-lg `+
+                className={`w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 hover:bg-white/5 transition ease-linear duration-150 rounded-lg mb-2 `+
                     (pathname === item.href ? 'bg-blue-800' : '')
 
                 }

@@ -1,14 +1,21 @@
 import Link from "next/link";
-import { FaRegClock } from "react-icons/fa";
+import { FaRegClock,FaAlignLeft  } from "react-icons/fa";
+import Image from "next/image";
 
 import type { SidebarMenuItem } from "@/app/dashboard/interfaces";
 import { SideBarItem } from "../";
 
 const menuItems: SidebarMenuItem[] = [
     {
+        label: "Dashboard",
+        description: "Overview of your activity",
+        icon: <FaAlignLeft/>,
+        href: "/dashboard",
+    },
+    {
         label: "Counter",
         description: "Simple counter page",
-        icon: <FaRegClock className="w-6 h-6 text-white" />,
+        icon: <FaRegClock/>,
         href: "/dashboard/counter",
     },
 ];
@@ -32,17 +39,19 @@ export const SideBar = () => {
                 </div>
                 <div id="profile" className="px-6 py-10">
                     <p className="text-slate-500">Welcome back,</p>
-                    <a
-                        href="#"
+                    <Link
+                        href="/dashboard"
                         className="inline-flex space-x-2 items-center"
                     >
                         <span>
-                            {/* <Image className="rounded-full w-8 h-8" src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt=""/> */}
+                            <Image src="/images/profile-avatar.jpg" alt="Avatar" width={80} 
+                                height={80} className="w-10 h-10 md:w-16 md:h-16 rounded-full object-cover"
+                            />
                         </span>
                         <span className="text-sm md:text-base font-bold">
                             JEBC-DeV
                         </span>
-                    </a>
+                    </Link>
                 </div>
                 <div id="nav" className="w-full px-6">
                     {menuItems.map((item) => (
