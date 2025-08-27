@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { FaRegClock,FaAlignLeft  } from "react-icons/fa";
 import Image from "next/image";
+/*  */
+import { FaRegClock, FaAlignLeft } from "react-icons/fa";
+import { SiAnimalplanet } from "react-icons/si";
 
 import type { SidebarMenuItem } from "@/app/dashboard/interfaces";
 import { SideBarItem } from "../";
@@ -9,14 +11,20 @@ const menuItems: SidebarMenuItem[] = [
     {
         label: "Dashboard",
         description: "Overview of your activity",
-        icon: <FaAlignLeft/>,
+        icon: <FaAlignLeft />,
         href: "/dashboard",
     },
     {
         label: "Counter",
         description: "Simple counter page",
-        icon: <FaRegClock/>,
+        icon: <FaRegClock />,
         href: "/dashboard/counter",
+    },
+    {
+        label: "Pokémons",
+        description: "Static Generation",
+        icon: <SiAnimalplanet />,
+        href: "/dashboard/pokemons",
     },
 ];
 export const SideBar = () => {
@@ -24,7 +32,7 @@ export const SideBar = () => {
         <>
             <div
                 id="menu"
-                className="bg-gray-900 min-h-screen z-10 text-slate-300 w-60 left-0 h-screen overflow-y-scroll"
+                className="bg-gray-900 min-h-screen z-10 text-slate-300 w-60 left-0 overflow-y-scroll"
             >
                 <div id="logo" className="my-4 px-6">
                     <Link
@@ -44,8 +52,12 @@ export const SideBar = () => {
                         className="inline-flex space-x-2 items-center"
                     >
                         <span>
-                            <Image src="/images/profile-avatar.jpg" alt="Avatar" width={80} 
-                                height={80} className="w-10 h-10 md:w-16 md:h-16 rounded-full object-cover"
+                            <Image
+                                src="/images/profile-avatar.jpg"
+                                alt="Avatar"
+                                width={80}
+                                height={80}
+                                className="w-10 h-10 md:w-16 md:h-16 rounded-full object-cover"
                             />
                         </span>
                         <span className="text-sm md:text-base font-bold">
@@ -55,10 +67,7 @@ export const SideBar = () => {
                 </div>
                 <div id="nav" className="w-full px-6">
                     {menuItems.map((item) => (
-                        <SideBarItem
-                            key={item.href}
-                            item={item}
-                        />
+                        <SideBarItem key={item.href} item={item} />
                     ))}
                 </div>
             </div>
