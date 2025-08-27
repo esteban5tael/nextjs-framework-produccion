@@ -9,7 +9,39 @@ export const WidgetsGrid = () => {
         <>
             <div className="flex flex-wrap p-2">
                 <SimpleWidget
-                    key={count}
+                    
+                    title="Counter"
+                    subtitle={`${count}`}
+                    description="This is the counter current value"
+                    icon={<FaRegClock size={40} />}
+                    href='/dashboard/counter'
+                />
+                <SimpleWidget
+                    
+                    title="Counter"
+                    subtitle={`${count}`}
+                    description="This is the counter current value"
+                    icon={<FaRegClock size={40} />}
+                    href='/dashboard/counter'
+                />
+                <SimpleWidget
+                    
+                    title="Counter"
+                    subtitle={`${count}`}
+                    description="This is the counter current value"
+                    icon={<FaRegClock size={40} />}
+                    href='/dashboard/counter'
+                />
+                <SimpleWidget
+                    
+                    title="Counter"
+                    subtitle={`${count}`}
+                    description="This is the counter current value"
+                    icon={<FaRegClock size={40} />}
+                    href='/dashboard/counter'
+                />
+                <SimpleWidget
+                    
                     title="Counter"
                     subtitle={`${count}`}
                     description="This is the counter current value"
