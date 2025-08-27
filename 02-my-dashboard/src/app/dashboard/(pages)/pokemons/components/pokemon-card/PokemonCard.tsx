@@ -1,13 +1,22 @@
+"use client";
+
 import { SimplePokemon } from "@/app/dashboard/interfaces";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { toggleFavorite } from "@/store/pokemons/pokemons";
 import Image from "next/image";
 import Link from "next/link";
-import { IoHeartOutline } from "react-icons/io5";
+import { IoHeart, IoHeartOutline } from "react-icons/io5";
 interface Props {
     pokemon: SimplePokemon;
 }
 
 export const PokemonCard = ({ pokemon }: Props) => {
     const { id, name } = pokemon;
+    const isFavorte = useAppSelector((state) => !!state.pokemons[id]);
+    const dispatch = useAppDispatch();
+    const onToggleFavoritePokemon = () => {
+        dispatch(toggleFavorite(pokemon));
+    };
     return (
         <>
             <div className="mx-auto right-0 mt-2 w-60">
@@ -34,22 +43,31 @@ export const PokemonCard = ({ pokemon }: Props) => {
                         </div>
                     </div>
                     <div className="border-b">
-                        <Link
-                            className="px-2 py-1 hover:bg-gray-100 flex items-center"
-                            href="/account/campaigns"
+                        <div
+                            className="px-2 py-1 hover:bg-gray-100 flex items-center cursor-pointer"
+                            onClick={onToggleFavoritePokemon}
                         >
                             <div className="text-red-600">
-                                <IoHeartOutline />
+                                {isFavorte ? (
+                                    <IoHeart />
+                                ) : (
+                                    <IoHeartOutline />
+                                )}
+                                {/* <IoHeartOutline /> */}
+                                {/* <IoHeart /> */}
                             </div>
                             <div className="pl-3">
                                 <p className="text-sm font-medium text-gray-800 leading-none">
-                                    Not Favorite Yet
+                                    {isFavorte
+                                        ? "Remove from favorites"
+                                        : "Add to favorites"}
                                 </p>
-                                <p className="text-sm font-medium text-gray-800 leading-none">
-                                    
+                                <p className="text-sm font-medium text-gray-400 leading-none">
+                                    Click to{" "}
+                                    {isFavorte ? "remove" : "add"}
                                 </p>
                             </div>
-                        </Link>
+                        </div>
                     </div>
                 </div>
             </div>
