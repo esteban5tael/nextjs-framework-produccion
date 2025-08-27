@@ -1,10 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useAppDispatch, useAppSelector } from "@/store"
+import { addOne, initCounterState, resetCounter, subOne } from "@/store/counter/counterSlice"
+import { useEffect } from "react"
+interface Props {
+  value: number
+}
 
 
-export const Counter = () => {
-  const [count, setCount] = useState(0);
+export const Counter = ({ value }:Props) => {
+  const count = useAppSelector(state => state.counter.count)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(initCounterState(value))
+  }, [value, dispatch])
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[300px] bg-gray-900 rounded-xl shadow-lg p-8">
       <div className="mb-6">
@@ -13,19 +24,19 @@ export const Counter = () => {
       <div className="flex gap-4">
         <button
           className="bg-gray-800 text-white px-5 py-2 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700 shadow"
-          onClick={() => setCount(count - 1)}
+          onClick={() => dispatch(subOne())}
         >
           -1
         </button>
         <button
           className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-500 transition-colors border border-blue-700 shadow"
-          onClick={() => setCount(0)}
+          onClick={() => dispatch(resetCounter(0))}
         >
           Reset
         </button>
         <button
           className="bg-gray-800 text-white px-5 py-2 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700 shadow"
-          onClick={() => setCount(count + 1)}
+          onClick={() => dispatch(addOne())}
         >
           +1
         </button>

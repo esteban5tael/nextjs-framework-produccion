@@ -13,7 +13,7 @@ export default function CounterPage() {
     return (
       <div className="">
         <h1 className="text-2xl font-bold mb-4">Counter Page</h1>
-        <Counter />
+        <Counter value={20} />
       </div>
     );
   }

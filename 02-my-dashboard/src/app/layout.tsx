@@ -1,23 +1,26 @@
 import { Metadata } from "next";
 import "./globals.css";
-
+/*  */
+import { Providers } from "@/store";
+import { store } from '../store/index';
+/*  */
 
 export const metadata: Metadata = {
-  title: "My Dashboard",
-  description: "{ JEBC-Dev } - Dashboard App",
-  keywords: ["Next.js", "React", "JavaScript"],
+    title: "My Dashboard",
+    description: "{ JEBC-Dev } - Dashboard App",
+    keywords: ["Next.js", "React", "JavaScript"],
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body >
-        {children}
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body>
+                <Providers>{children}</Providers>
+            </body>
+        </html>
+    );
 }

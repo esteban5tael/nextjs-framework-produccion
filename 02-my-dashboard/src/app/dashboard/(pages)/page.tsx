@@ -1,4 +1,9 @@
 import { Metadata } from "next";
+/*  */
+
+
+/*  */
+import {  WidgetsGrid } from "../components";
 
 
 export const metadata: Metadata = {
@@ -8,9 +13,18 @@ export const metadata: Metadata = {
 };
 
 export default function DashboardPage() {
+    
     return (
         <>
-            <h1>Dashboard</h1>
+            <div>
+                <div className="text-center">
+                    <h1 className="text-2xl  m-4">Dashboard</h1>
+
+                    <span>General Information</span>
+                </div>
+
+                <WidgetsGrid />
+            </div>
         </>
     );
 }
