@@ -6,6 +6,7 @@ import { SiAnimalplanet } from "react-icons/si";
 
 import type { SidebarMenuItem } from "@/app/dashboard/interfaces";
 import { SideBarItem } from "../";
+import { IoHeartOutline } from "react-icons/io5";
 
 const menuItems: SidebarMenuItem[] = [
     {
@@ -25,6 +26,13 @@ const menuItems: SidebarMenuItem[] = [
         description: "Static Generation",
         icon: <SiAnimalplanet />,
         href: "/dashboard/pokemons",
+    },
+    {
+        label: "Favorites",
+        description: "Your favorite Pokémons",
+        icon: <IoHeartOutline />,
+        href: "/dashboard/pokemons/favorites",
+        
     },
 ];
 export const SideBar = () => {

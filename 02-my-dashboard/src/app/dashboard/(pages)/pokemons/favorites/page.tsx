@@ -3,7 +3,7 @@ import {
     SimplePokemon,
 } from "@/app/dashboard/interfaces";
 
-import { PokemonGrid } from "./components";
+import { PokemonGrid } from "../components";
 import { notFound } from "next/navigation";
 
 const getPokemons = async (
