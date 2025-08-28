@@ -1,7 +1,17 @@
 "use client";
-
-import { IoCloseOutline, IoSearchOutline } from "react-icons/io5";
-
+import Link from "next/link";
+import {
+    IoCloseOutline,
+    IoLogInOutline,
+    IoLogOutOutline,
+    IoPeopleOutline,
+    IoPersonOutline,
+    IoSearchOutline,
+    IoShirtOutline,
+    IoTicketOutline,
+} from "react-icons/io5";
+const optionMenuItemClasses: string =
+    "flex items-center  p-2 rounded transition-all hover:text-blue-400 hover:bg-gray-800 mb-2";
 export const SideMenu = () => {
     return (
         <div>
@@ -24,14 +34,55 @@ export const SideMenu = () => {
 
                 <div className="relative mt-14">
                     <IoSearchOutline
-                    className="absolute top-2 left-2 text-gray-200"
-                    size={20}/>
+                        className="absolute top-2 left-2 text-gray-200"
+                        size={20}
+                    />
                     <input
-                    className="w-full p-2 pl-8 rounded bg-gray-800 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    type="text" 
-                    placeholder="Buscar..."
+                        className="w-full p-2 pl-8 rounded bg-gray-800 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        type="text"
+                        placeholder="Buscar..."
                     />
                 </div>
+
+                {/* Opciones del menu */}
+                <div className="mt-10"></div>
+
+                <Link className={`${optionMenuItemClasses}`} href="/">
+                    <IoPersonOutline size={30} />
+                    <span className="ml-3 text-xl">Perfíl</span>
+                </Link>
+
+                <Link className={`${optionMenuItemClasses}`} href="/">
+                    <IoTicketOutline size={30} />
+                    <span className="ml-3 text-xl">Ordenes</span>
+                </Link>
+
+                <Link className={`${optionMenuItemClasses}`} href="/">
+                    <IoLogInOutline size={30} />
+                    <span className="ml-3 text-xl">Ingresar</span>
+                </Link>
+
+                <Link className={`${optionMenuItemClasses}`} href="/">
+                    <IoLogOutOutline size={30} />
+                    <span className="ml-3 text-xl">Salir</span>
+                </Link>
+
+                <div className="w-full h-px my-10 bg-gray-950"></div>
+
+                <Link className={`${optionMenuItemClasses}`} href="/">
+                    <IoShirtOutline size={30} />
+                    <span className="ml-3 text-xl">Products</span>
+                </Link>
+
+                <Link className={`${optionMenuItemClasses}`} href="/">
+                    <IoTicketOutline size={30} />
+                    <span className="ml-3 text-xl">Ordenes</span>
+                </Link>
+
+                <Link className={`${optionMenuItemClasses}`} href="/">
+                    <IoPeopleOutline size={30} />
+                    <span className="ml-3 text-xl">Usuarios</span>
+                </Link>
             </nav>
         </div>
     );
