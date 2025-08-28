@@ -5,12 +5,10 @@
 html,
 body {
   @apply bg-gray-900 text-gray-300 m-0 p-0 font-sans;
-  background: linear-gradient(
-    180deg,
-    rgba(39, 68, 148, 0.8) 0%,
-    rgba(39, 68, 148, 0.6) 40%,
-    rgba(20, 20, 30, 0.9) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(20, 30, 60, 0.95) 20%,
+      rgba(20, 30, 60, 0.85) 40%,
+      rgba(10, 10, 20, 0.98) 100%);
 }
 
 
