@@ -1,7 +1,12 @@
+import { Title } from "@/components";
+
 export default function ShopPage() {
     return (
         <>
-            <h1 className="text-2xl text-center ">Shop</h1>
+            <Title title="Tienda" subtitle="Todos Los Productos"
+            className="mb-2"
+            />
+            Shop
         </>
     );
 }

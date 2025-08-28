@@ -4,7 +4,13 @@
 
 html,
 body {
-  @apply bg-gray-900 text-white m-0 p-0 font-sans;
+  @apply bg-gray-900 text-gray-300 m-0 p-0 font-sans;
+  background: linear-gradient(
+    180deg,
+    rgba(39, 68, 148, 0.8) 0%,
+    rgba(39, 68, 148, 0.6) 40%,
+    rgba(20, 20, 30, 0.9) 100%
+  );
 }
 
 
