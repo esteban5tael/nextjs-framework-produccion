@@ -4,7 +4,7 @@
 
 html,
 body {
-  @apply bg-gray-900 text-white;
+  @apply bg-gray-900 text-white m-0 p-0 font-sans;
 }
 
 
