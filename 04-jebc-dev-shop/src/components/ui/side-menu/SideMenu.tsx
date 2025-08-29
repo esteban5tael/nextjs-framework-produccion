@@ -1,4 +1,6 @@
 "use client";
+import { useUIStore } from "@/store";
+import clsx from "clsx";
 import Link from "next/link";
 import {
     IoCloseOutline,
@@ -13,23 +15,41 @@ import {
 const optionMenuItemClasses: string =
     "flex items-center  p-2 rounded transition-all hover:text-blue-400 hover:bg-gray-800 mb-2";
 export const SideMenu = () => {
+    const isSideMenuOpen = useUIStore(
+        (state) => state.isSideMenuOpen
+    );
+    
+    const closeSideMenu = useUIStore((state) => state.closeSideMenu);
     return (
         <div>
             {/* Background Black */}
-            <div className="fixed top-0 left-0 w-screen h-screen bg-black opacity-50 z-10"></div>
+            {isSideMenuOpen && (
+                <div className="fixed top-0 left-0 w-screen h-screen bg-black opacity-50 z-10"></div>
+            )}
 
+            {isSideMenuOpen && (
+                <div className="fade-in fixed top-0 left-0 w-screen h-screen backdrop-filter backdrop-blur-sm z-10"
+                onClick={() => closeSideMenu()}
+                ></div>
+            )}
             {/* Background Blur */}
-            <div className="fade-in fixed top-0 left-0 w-screen h-screen backdrop-filter backdrop-blur-sm z-10"></div>
 
             {/* Menu */}
             <nav
                 //todo: efecto slide
-                className="fixed p-5 right-0 top-0 w-[500px] h-screen bg-gradient-to-b from-blue-900/80 via-blue-900/60 to-gray-900/90 backdrop-filter backdrop-blur-sm shadow-2xl transform transition-all duration-300 ease-in-out z-20"
+                className={
+                    clsx("fixed p-5 right-0 top-0 w-[300] h-screen bg-gradient-to-b from-blue-900/80 via-blue-900/60 to-gray-900/90 backdrop-filter backdrop-blur-sm shadow-2xl transform transition-all duration-300 ease-in-out z-20",
+                        {
+                            "translate-x-full": !isSideMenuOpen,
+                            "translate-x-0": isSideMenuOpen,
+                        }
+                    )
+                }
             >
                 <IoCloseOutline
                     className="absolute top-5 right-5 text-white hover:text-blue-300 cursor-pointer"
                     size={50}
-                    onClick={() => console.log("Cerrar menu")}
+                    onClick={() => closeSideMenu()}
                 />
 
                 <div className="relative mt-14">
