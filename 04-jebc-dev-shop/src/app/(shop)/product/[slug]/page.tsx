@@ -1,3 +1,4 @@
+import { SizeSelector } from "@/components";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 
@@ -30,6 +31,10 @@ export default function ProductPage({ params }: Props) {
                 <p className="text-lg mb-5">$ {product.price} </p>
 
                 {/* Selector de Tallas */}
+                <SizeSelector
+                selectedSize={product.sizes[1]}
+                availableSizes={product.sizes}
+                />
 
                 {/* Selector de Cantidad */}
 
