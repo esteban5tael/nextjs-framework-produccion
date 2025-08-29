@@ -1,4 +1,4 @@
-import { SizeSelector } from "@/components";
+import { QuantitySelector, SizeSelector } from "@/components";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 
@@ -37,6 +37,7 @@ export default function ProductPage({ params }: Props) {
                 />
 
                 {/* Selector de Cantidad */}
+                <QuantitySelector quantity={2} />
 
                 {/* Agregar al carrito */}
                 <button className="btn-primary my-5">Agregar al Carrito</button>
