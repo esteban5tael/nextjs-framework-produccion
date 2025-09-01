@@ -23,7 +23,7 @@ export default function ProductPage({ params }: Props) {
     return (
         <div className="m-5 mb-20 grid grid-cols-1 md:grid-cols-3 gap-1">
             {/* Slideshow */}
-            <div className="col-span-1 md:col-span-2">
+            <div className="col-span-1 md:col-span-2 mb-10">
                 <SlideShow
                     title={product.title}
                     images={product.images}
