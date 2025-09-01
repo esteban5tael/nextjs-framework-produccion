@@ -1,4 +1,8 @@
-import { QuantitySelector, SizeSelector } from "@/components";
+import {
+    QuantitySelector,
+    SizeSelector,
+    SlideShow,
+} from "@/components";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 
@@ -20,7 +24,11 @@ export default function ProductPage({ params }: Props) {
         <div className="m-5 mb-20 grid grid-cols-1 md:grid-cols-3 gap-1">
             {/* Slideshow */}
             <div className="col-span-1 md:col-span-2">
-                <h1>Imagen</h1>
+                <SlideShow
+                    title={product.title}
+                    images={product.images}
+                    className="w-full h-[500px] rounded-lg"
+                />
             </div>
 
             {/* Details */}
@@ -32,18 +40,22 @@ export default function ProductPage({ params }: Props) {
 
                 {/* Selector de Tallas */}
                 <SizeSelector
-                selectedSize={product.sizes[1]}
-                availableSizes={product.sizes}
+                    selectedSize={product.sizes[1]}
+                    availableSizes={product.sizes}
                 />
 
                 {/* Selector de Cantidad */}
                 <QuantitySelector quantity={2} />
 
                 {/* Agregar al carrito */}
-                <button className="btn-primary my-5">Agregar al Carrito</button>
+                <button className="btn-primary my-5">
+                    Agregar al Carrito
+                </button>
 
                 {/* Descripcion */}
-                <h3 className="font-bold text-sm text-gray-500">Descripción </h3>
+                <h3 className="font-bold text-sm text-gray-500">
+                    Descripción{" "}
+                </h3>
                 <p className="font-light text-sm">
                     {product.description}
                 </p>
