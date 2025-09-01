@@ -1,10 +1,15 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { /* useRef, */ useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperObject } from "swiper";
-import { Autoplay, FreeMode, Navigation, Thumbs } from "swiper/modules";
+import {
+    Autoplay,
+    FreeMode,
+    Navigation,
+    Thumbs,
+} from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
@@ -38,11 +43,16 @@ export const SlideShow = ({ images, title, className }: Props) => {
                     autoplay={{
                         delay: 2500,
                     }}
-                    thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-                    modules={[FreeMode, Navigation, Thumbs,Autoplay]}
+                    thumbs={{
+                        swiper:
+                            thumbsSwiper && !thumbsSwiper.destroyed
+                                ? thumbsSwiper
+                                : null,
+                    }}
+                    modules={[FreeMode, Navigation, Thumbs, Autoplay]}
                     className="mySwiper2"
                 >
-                    {images.map((image,index) => (
+                    {images.map((image, index) => (
                         <SwiperSlide key={index}>
                             <div className="relative w-full h-full">
                                 <Image
@@ -76,7 +86,7 @@ export const SlideShow = ({ images, title, className }: Props) => {
                         },
                     }}
                 >
-                    {images.map((image,index) => (
+                    {images.map((image, index) => (
                         <SwiperSlide key={index}>
                             <div className="relative w-full h-full">
                                 <Image
