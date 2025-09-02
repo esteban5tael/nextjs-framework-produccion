@@ -1,12 +1,12 @@
 import { CartItem, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import Link from "next/link";
-const productsInCart=[
-  initialData.products[0],
-  initialData.products[1],
-  initialData.products[2],
-  initialData.products[3],
-]
+const productsInCart = [
+    initialData.products[0],
+    initialData.products[1],
+    initialData.products[2],
+    initialData.products[3],
+];
 export default function CartPage() {
     return (
         <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
@@ -22,16 +22,61 @@ export default function CartPage() {
                         <Link className="underline mb-5" href={"/"}>
                             Continúa Comprando
                         </Link>
+
+                        {/* Items */}
+                        {productsInCart.map((product) => (
+                            <CartItem
+                                key={product.slug}
+                                product={product}
+                            />
+                        ))}
                     </div>
 
-                    {/* Items */}
-                    {
-                      productsInCart.map(product=>(
-                        <CartItem key={product.slug} product={product}/>
-                      ))
-                    }
-
                     {/* Checkout */}
+                    <div
+                        className="bg-gray-800 rounded-xl shadow-2xl p-7"
+                        style={{
+                            boxShadow:
+                                "0px 10px 20px rgba(0, 0, 0, 0.5)",
+                        }}
+                    >
+                        <h2 className="text-2xl mb-2">
+                            Resumen de la Orden
+                        </h2>
+                        <div className="grid grid-cols-2 gap-2">
+                            <span>No. Productos</span>
+                            <span className="text-right">
+                                4 Artículos
+                            </span>
+                            
+                            {/*  */}
+                            <span>Subtotal</span>
+                            <span className="text-right">
+                                $ 100
+                            </span>
+                            
+
+                            {/*  */}
+                            <span>Impuestos (15%) </span>
+                            <span className="text-right">
+                                $ 100
+                            </span>
+                            
+                            {/*  */}
+                            <span className="text-2xl mt-10">Total: </span>
+                            <span className="text-right text-2xl mt-10 font-bold">
+                                $ 100
+                            </span>
+                        </div>
+                        {/*  */}
+                        <div className="mt-10 mb-5 w-full">
+                            <Link
+                            className="flex btn-primary w-full justify-center   "
+                            href={"/checkout/address"}
+                            > CheckOut</Link>
+                        </div>
+                        {/*  */}
+                    </div>
                 </div>
             </div>
         </div>
