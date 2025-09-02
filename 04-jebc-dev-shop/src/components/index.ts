@@ -1,3 +1,4 @@
+export * from './cart/cart-item/CartItem';
 export * from './product/quantity-selector/QuantitySelector';
 export * from './product/size-selector/SizeSelector';
 export * from './product/slide-show/SlideShow';
