@@ -6,13 +6,15 @@ export const metadata: Metadata = {
 };
 
 export default function AuthLayout({
- children
+  children,
 }: {
- children: React.ReactNode;
+  children: React.ReactNode;
 }) {
   return (
-    <main className="bg-slate-950 min-h-screen text-white p-4">
-        {children   }
+    <main className="bg-slate-800 h-[800px] text-gray-300 flex justify-center items-center">
+      <div className="w-full max-w-md bg-gray-900 p-6 rounded-lg shadow-lg">
+        {children}
+      </div>
     </main>
   );
 }
