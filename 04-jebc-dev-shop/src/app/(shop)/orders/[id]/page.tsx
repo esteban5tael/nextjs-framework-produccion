@@ -1,7 +1,7 @@
 import { CheckoutItem, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import clsx from "clsx";
-import Link from "next/link";
+
 import { IoCardOutline } from "react-icons/io5";
 
 interface Props {
