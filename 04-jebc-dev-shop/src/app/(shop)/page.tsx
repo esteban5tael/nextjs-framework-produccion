@@ -1,6 +1,6 @@
-import { getPaginatedProductsWithImages } from "@/actions";
-import { ProductGrid, Title } from "@/components";
 import { redirect } from "next/navigation";
+import { getPaginatedProductsWithImages } from "@/actions";
+import { Pagination, ProductGrid, Title } from "@/components";
 
 interface Props {
     searchParams: {
@@ -10,17 +10,16 @@ interface Props {
 }
 
 export default async function ShopPage({ searchParams }: Props) {
-    
     const params = await searchParams;
 
     const page = params.page ? parseInt(params.page) : 1;
     const take = params.take ? parseInt(params.take) : 12;
 
-    
-    const { products } = await getPaginatedProductsWithImages({page, take });
+    const { products, /* currentPage, */ totalPages } =
+        await getPaginatedProductsWithImages({ page, take });
 
-    if(products.length === 0){
-        redirect('/');
+    if (products.length === 0) {
+        redirect("/");
     }
 
     return (
@@ -31,6 +30,7 @@ export default async function ShopPage({ searchParams }: Props) {
                 className="mb-2"
             />
             <ProductGrid products={products} />
+            <Pagination totalPages={totalPages} />
         </>
     );
 }
