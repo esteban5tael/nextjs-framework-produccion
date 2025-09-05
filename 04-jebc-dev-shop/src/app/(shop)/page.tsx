@@ -1,12 +1,28 @@
 import { getPaginatedProductsWithImages } from "@/actions";
 import { ProductGrid, Title } from "@/components";
-import { Product } from "@/interfaces";
+import { redirect } from "next/navigation";
 
+interface Props {
+    searchParams: {
+        page?: string;
+        take?: string;
+    };
+}
 
-const {products} =await getPaginatedProductsWithImages() ;
+export default async function ShopPage({ searchParams }: Props) {
+    
+    const params = await searchParams;
 
-export default async function ShopPage() {
-    console.log(products);
+    const page = params.page ? parseInt(params.page) : 1;
+    const take = params.take ? parseInt(params.take) : 12;
+
+    
+    const { products } = await getPaginatedProductsWithImages({page, take });
+
+    if(products.length === 0){
+        redirect('/');
+    }
+
     return (
         <>
             <Title
@@ -14,7 +30,7 @@ export default async function ShopPage() {
                 subtitle="Todos Los Productos"
                 className="mb-2"
             />
-             <ProductGrid products={products} /> 
+            <ProductGrid products={products} />
         </>
     );
 }
