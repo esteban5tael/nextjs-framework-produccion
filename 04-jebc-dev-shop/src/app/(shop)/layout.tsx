@@ -2,8 +2,8 @@ import { TopMenu ,SideMenu, Footer} from "@/components";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "My Next.js Shop",
-    description: "My Next.js Shop",
+  title: "Jebc Dev Shop",
+  description: "A simple e-commerce application built with Next.js",
 };
 export default function ShopLayout({
     children,

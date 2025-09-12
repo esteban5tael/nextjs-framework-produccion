@@ -3,7 +3,10 @@ import { inter } from "@/config";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "My Next.js Shop",
+  title: {
+    template: "%s | Jebc Dev Shop",
+    default: "Jebc Dev Shop",
+  },
   description: "A simple e-commerce application built with Next.js",
 };
 export default function RootLayout({
