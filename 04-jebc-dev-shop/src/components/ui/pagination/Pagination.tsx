@@ -1,47 +1,54 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { redirect, usePathname, useSearchParams } from "next/navigation";
 import {
     IoChevronBackOutline,
     IoChevronForwardOutline,
 } from "react-icons/io5";
+import { generatePaginationNumbers } from "@/utils";
+import clsx from "clsx";
 
 interface Props {
     totalPages: number;
 }
 
-export const Pagination = ({
-    totalPages,
-}: Props) => {
+export const Pagination = ({ totalPages }: Props) => {
+    const pathName = usePathname();
+    const searchParams = useSearchParams();
+    const currentPage = Number(
+        searchParams.get("page") ? searchParams.get("page") : 1
 
-    const pathName=usePathname();
-    const searchParams=useSearchParams();
-    const currentPage=Number(searchParams.get('page')) ?? '1';
-    
-    
+    ) ?? 1;
 
-    const createPageUrl = (pageNumber:number|string) => {
+    if (currentPage < 1 || currentPage > totalPages) return redirect(pathName);
+
+    const allPages = generatePaginationNumbers(
+        currentPage,
+        totalPages
+    );
+
+
+    const createPageUrl = (pageNumber: number | string) => {
         try {
-
             const params = new URLSearchParams(searchParams);
 
-            if(pageNumber === '...') {
+            if (pageNumber === "...") {
                 return `${pathName}?${params.toString()}`;
             }
 
-            if(Number(pageNumber) <= 0) {
+            if (Number(pageNumber) <= 0) {
                 return `${pathName}`;
             }
 
-            if(Number(pageNumber) >totalPages) {
+            if (Number(pageNumber) > totalPages) {
                 return `${pathName}?${params.toString()}`;
             }
 
-            params.set('page',String(pageNumber));
+            params.set("page", String(pageNumber));
             return `${pathName}?${params.toString()}`;
         } catch (error) {
-            console.log('Error en la paginación',error);
+            console.log("Error en la paginación", error);
             throw new Error("Error en la paginación");
         }
     };
@@ -54,7 +61,7 @@ export const Pagination = ({
                         <li className="page-item">
                             <Link
                                 className="page-link relative flex items-center justify-center w-12 h-12 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-600 hover:text-gray-600 hover:bg-gray-200 focus:shadow-none"
-                                href={createPageUrl(currentPage- 1)}
+                                href={createPageUrl(currentPage - 1)}
                                 aria-disabled="true"
                             >
                                 <IoChevronBackOutline
@@ -63,34 +70,23 @@ export const Pagination = ({
                                 />
                             </Link>
                         </li>
-
-                        <li className="page-item">
-                            <a
-                                className="page-link relative flex items-center justify-center w-12 h-12 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-600 hover:text-gray-600 hover:bg-gray-200 focus:shadow-none"
-                                href="#"
-                            >
-                                1
-                            </a>
-                        </li>
-
-                        <li className="page-item active">
-                            <a
-                                className="page-link relative flex items-center justify-center w-12 h-12 rounded border-0 bg-blue-600 outline-none transition-all duration-300 text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
-                                href="#"
-                            >
-                                2{" "}
-                                <span className="visually-hidden"></span>
-                            </a>
-                        </li>
-
-                        <li className="page-item">
-                            <a
-                                className="page-link relative flex items-center justify-center w-12 h-12 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-600 hover:text-gray-600 hover:bg-gray-200 focus:shadow-none"
-                                href="#"
-                            >
-                                3
-                            </a>
-                        </li>
+                        {allPages.map((page, index) => (
+                            <li key={page + '-' + index} className="page-item">
+                                <Link
+                                    className={
+                                        clsx(
+                                            "page-link relative flex items-center justify-center w-12 h-12 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-600 hover:text-gray-600 hover:bg-gray-200 focus:shadow-none",
+                                            {
+                                                "bg-blue-800 shadow-md text-white font-bold hover:bg-blue-400 hover:text-white": Number(page) === currentPage,
+                                            }
+                                        )
+                                    }
+                                    href={createPageUrl(page)}
+                                >
+                                    {page}
+                                </Link>
+                            </li>
+                        ))}
 
                         <li className="page-item">
                             <Link

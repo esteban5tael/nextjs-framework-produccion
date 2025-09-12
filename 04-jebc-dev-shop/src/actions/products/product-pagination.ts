@@ -9,6 +9,7 @@ import prisma from "@/lib/prisma";
 export const getPaginatedProductsWithImages = async ({
     page = 1,
     take = 12,
+    gender,
 
 }:PaginationOptions) => {
     try {
@@ -28,8 +29,15 @@ export const getPaginatedProductsWithImages = async ({
                 },
                 category: { select: { name: true } },
             },
+            where: {
+                gender:gender
+            },
         });
-        const totalCount = await prisma.product.count({});
+        const totalCount = await prisma.product.count({
+            where: {
+                gender:gender
+            },
+        });
         const totalPages = Math.ceil(totalCount / take);
         return {
             currentPage: page,

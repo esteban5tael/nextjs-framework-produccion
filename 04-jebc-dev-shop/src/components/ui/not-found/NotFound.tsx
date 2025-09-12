@@ -16,3 +16,4 @@ export const NotFound = ({ message }: Props) => {
         </div>
     );
 };
+

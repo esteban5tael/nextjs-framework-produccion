@@ -1,5 +1,6 @@
+import { getPaginatedProductsWithImages } from "@/actions";
 import { CheckoutItem, Title } from "@/components";
-import { initialData } from "@/seed/seed";
+
 import clsx from "clsx";
 
 import { IoCardOutline } from "react-icons/io5";
@@ -8,14 +9,12 @@ interface Props {
     params: { id: string };
 }
 
-const productsInCart = [
-    initialData.products[0],
-    initialData.products[1],
-    initialData.products[2],
-    initialData.products[3],
-];
-export default function OrderByIdPage({ params }: Props) {
-    const { id } = params;
+const { products } = await getPaginatedProductsWithImages({
+    page: 1,
+    take: 3,
+});
+export default async function OrderByIdPage({ params }: Props) {
+    const { id } =await params;
     // TODO: Verificar que la orden exista
     return (
         <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
@@ -44,7 +43,7 @@ export default function OrderByIdPage({ params }: Props) {
                         </div>
 
                         {/* Items */}
-                        {productsInCart.map((product) => (
+                        {products.map((product) => (
                             <CheckoutItem
                                 key={product.slug}
                                 product={product}

@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jebc Dev Shop
 
-## Getting Started
+## Instalación y configuración
 
-First, run the development server:
+1. **Clona el repositorio:**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    ```bash
+    git clone <URL-del-repositorio>
+    cd 04-jebc-dev-shop
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Instala las dependencias:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    ```bash
+    npm install
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Configura la base de datos:**
 
-## Learn More
+    - Edita el archivo `.env` y agrega tu cadena de conexión de la base de datos en la variable `DATABASE_URL`.
 
-To learn more about Next.js, take a look at the following resources:
+4. **Ejecuta las migraciones de Prisma:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    - Para desarrollo:
+        ```bash
+        npx prisma migrate dev --name init
+        ```
+    - Para producción (aplica migraciones existentes):
+        ```bash
+        npx prisma migrate deploy
+        ```
+        Esto creará o aplicará las tablas necesarias en la base de datos según el esquema definido en `prisma/schema.prisma`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. **(Opcional) Genera el cliente de Prisma:**
 
-## Deploy on Vercel
+    ```bash
+    npx prisma generate
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+6. **Si quieres poblar la base de datos con datos iniciales:**
+    ```bash
+    npm run seed
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Ejecución del proyecto
+
+-   **Modo desarrollo:**
+
+    ```bash
+    npm run dev
+    ```
+
+-   **Build de producción:**
+    ```bash
+    npm run build
+    npm start
+    ```
+
+## Scripts útiles
+
+-   `npm run dev` — Inicia el servidor en modo desarrollo.
+-   `npm run build` — Compila el proyecto para producción.
+-   `npm start` — Inicia el servidor en modo producción.
+-   `npm run lint` — Ejecuta ESLint para analizar el código.
+-   `npm run seed` — Elimina y repuebla la base de datos con datos iniciales.
+
+## Tecnologías principales
+
+-   Next.js
+-   React
+-   Prisma ORM
+-   Tailwind CSS
+
+## Estructura principal
+
+-   `prisma/` — Esquema y migraciones de la base de datos.
+-   `src/` — Código fuente del proyecto.
+-   `public/` — Archivos públicos y assets.
+
+## Notas
+
+-   Asegúrate de tener una base de datos configurada y accesible.
+-   El script de seed solo se ejecuta en modo desarrollo.
+-   Revisa y ajusta el archivo `.env` según tu entorno.

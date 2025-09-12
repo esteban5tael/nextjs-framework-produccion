@@ -7,7 +7,7 @@
         "build": "next build --turbopack",
         "start": "next start",
         "lint": "eslint",
-        "seed": "clear && npx tsx ./src/seed/seed-database.ts "
+        "seed": "clear && npx tsx ./src/seed/seed-database.ts"
     },
     "dependencies": {
         "@prisma/client": "^6.15.0",

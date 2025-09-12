@@ -1,13 +1,13 @@
+import { getPaginatedProductsWithImages } from "@/actions";
 import { CheckoutItem, Title } from "@/components";
-import { initialData } from "@/seed/seed";
+
 import Link from "next/link";
-const productsInCart = [
-    initialData.products[0],
-    initialData.products[1],
-    initialData.products[2],
-    initialData.products[3],
-];
+const { products } = await getPaginatedProductsWithImages({
+    page: 1,
+    take: 3,
+});
 export default function CheckoutPage() {
+    
     return (
         <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
             <div className="flex flex-col w-[1000px]">
@@ -27,7 +27,7 @@ export default function CheckoutPage() {
                         </Link>
 
                         {/* Items */}
-                        {productsInCart.map((product) => (
+                        {products.map((product) => (
                             <CheckoutItem
                                 key={product.slug}
                                 product={product}
