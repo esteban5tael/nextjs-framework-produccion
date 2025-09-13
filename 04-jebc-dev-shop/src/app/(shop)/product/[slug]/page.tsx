@@ -2,14 +2,14 @@ export const revalidate = 604800; // 7 days
 
 import { getProductBySlug } from "@/actions";
 import {
-    QuantitySelector,
-    SizeSelector,
+    
     SlideShow,
     StockLabel,
 } from "@/components";
 import { Metadata, /* ResolvingMetadata */ } from "next";
 
 import { notFound } from "next/navigation";
+import { AddToCart } from "./ui/AddToCart";
 
 export async function generateMetadata(
     { params }: Props,
@@ -73,19 +73,9 @@ export default async function ProductPage({ params }: Props) {
                 </h1>
                 <p className="text-lg mb-5">$ {product.price} </p>
 
-                {/* Selector de Tallas */}
-                <SizeSelector
-                    selectedSize={product.sizes[1]}
-                    availableSizes={product.sizes}
-                />
-
-                {/* Selector de Cantidad */}
-                <QuantitySelector quantity={2} />
-
-                {/* Agregar al carrito */}
-                <button className="btn-primary my-5">
-                    Agregar al Carrito
-                </button>
+                {/* Selector de tallas, cantidad y agregar al carrito */}
+                <AddToCart product={product} />
+                {/* Selector de tallas, cantidad y agregar al carrito */}
 
                 {/* Descripcion */}
                 <h3 className="font-bold text-sm text-gray-500">
