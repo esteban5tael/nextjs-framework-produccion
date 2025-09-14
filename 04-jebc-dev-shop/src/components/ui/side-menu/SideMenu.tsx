@@ -77,7 +77,7 @@ export const SideMenu = () => {
                     <span className="ml-3 text-xl">Ordenes</span>
                 </Link>
 
-                <Link className={`${optionMenuItemClasses}`} href="/">
+                <Link className={`${optionMenuItemClasses}`} href="/auth/login">
                     <IoLogInOutline size={30} />
                     <span className="ml-3 text-xl">Ingresar</span>
                 </Link>

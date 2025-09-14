@@ -1,14 +1,40 @@
 import prisma from "../lib/prisma";
 import { initialData } from "./seed";
+import bcrypt from "bcryptjs";
+interface SeedUser{
+    
+    name: string;
+    email: string;
+    password: string;
+    role: "admin"|"user";
 
+}
 async function main(): Promise<void> {
     await console.log(`Deleting database...`);
     await prisma.productImage.deleteMany();
     await prisma.product.deleteMany();
     await prisma.category.deleteMany();
+    await prisma.user.deleteMany();
     await console.log(`Database deleted.`);
 
+    const initialUsersData: SeedUser[] = [
+            {
+                name: "Admin User",
+                email: "admin@admin.com",
+                password:bcrypt.hashSync( "admin123"), 
+                role: "admin",
+            },
+            {
+                name: "Normal User",
+                email: "user@user.com",
+                password:bcrypt.hashSync( "admin123"), 
+                role: "user",
+            },
+        ];
     console.log(`Seeding database...`);
+     await prisma.user.createMany({
+        data: initialUsersData
+    });
     const { categories, products } = initialData;
 
     const categoriesData = categories.map((category) => {
