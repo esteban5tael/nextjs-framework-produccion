@@ -1,22 +1,18 @@
 "use client";
 
-import { useActionState } from "react";
-import { useSearchParams } from "next/navigation";
 import { authenticate } from "@/actions";
 import Link from "next/link";
-import { IoInformationOutline } from "react-icons/io5";
+import { useActionState } from "react";
 
 export const LoginForm = () => {
-    const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get("callbackUrl") || "/";
-    const [errorMessage, formAction, isPending] = useActionState(
+    const [state, dispatch, errorMessage] = useActionState(
         authenticate,
         undefined
     );
 
     return (
         <>
-            <form className="flex flex-col" action={formAction}>
+            <form className="flex flex-col" action={dispatch}>
                 <label htmlFor="email">Correo electrónico</label>
                 <input
                     className="px-5 py-2 border bg-gray-200 rounded mb-5 text-gray-600"
@@ -31,24 +27,15 @@ export const LoginForm = () => {
                     name="password"
                 />
 
-             
-
-                <input
-                    type="hidden"
-                    name="redirectTo"
-                    value={callbackUrl}
-                />
-                <button className="btn-primary" type="submit" disabled={isPending}>
-                    Ingresar
-                </button>
-
-
-                           {errorMessage && (
-                    <span className="text-red-600 text-clip flex items-center justify-center gap-2 mt-6 animate-pulse">
-                        <IoInformationOutline />
-                        <span>Credenciales inválidas</span>
+                {errorMessage && (
+                    <span className="text-red-600 text-clip flex justify-center items-center align-middle m-6 animate-pulse">
+                        Credenciales inválidas
                     </span>
                 )}
+
+                <button className="btn-primary" type="submit">
+                    Ingresar
+                </button>
 
                 {/* divisor l ine */}
                 <div className="flex items-center my-5">
