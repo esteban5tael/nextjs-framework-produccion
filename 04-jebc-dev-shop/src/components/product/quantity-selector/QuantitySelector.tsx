@@ -8,7 +8,7 @@ import {
 
 interface Props {
     quantity: number;
-    onQuantityChanged?: (quantity: number) => void;
+    onQuantityChanged: (quantity: number) => void;
 }
 
 export const QuantitySelector = ({

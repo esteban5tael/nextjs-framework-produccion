@@ -1,17 +1,12 @@
-import { CartItem, Title } from "@/components";
-import { Product } from "@/interfaces";
+
+import { ProductsInCart, Title } from "@/components";
+
 
 import Link from "next/link";
-import { redirect } from "next/navigation";
-const productsInCart:Product[] = [
-    /* initialData.products[0],
-    initialData.products[1],
-    initialData.products[2],
-    initialData.products[3], */
-];
+
 export default function CartPage() {
 
-    redirect("/empty");
+    // redirect("/empty");
     return (
         <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
             <div className="flex flex-col w-[1000px]">
@@ -28,12 +23,8 @@ export default function CartPage() {
                         </Link>
 
                         {/* Items */}
-                        {productsInCart.map((product) => (
-                            <CartItem
-                                key={product.slug}
-                                product={product}
-                            />
-                        ))}
+                        <ProductsInCart />
+                        
                     </div>
 
                     {/* Checkout */}
