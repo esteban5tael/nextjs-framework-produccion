@@ -1,5 +1,5 @@
 
-import { ProductsInCart, Title } from "@/components";
+import { OrderSumary, ProductsInCart, Title } from "@/components";
 
 
 import Link from "next/link";
@@ -38,31 +38,9 @@ export default function CartPage() {
                         <h2 className="text-2xl mb-2">
                             Resumen de la Orden
                         </h2>
-                        <div className="grid grid-cols-2 gap-2">
-                            <span>No. Productos</span>
-                            <span className="text-right">
-                                4 Artículos
-                            </span>
-                            
-                            {/*  */}
-                            <span>Subtotal</span>
-                            <span className="text-right">
-                                $ 100
-                            </span>
-                            
 
-                            {/*  */}
-                            <span>Impuestos (15%) </span>
-                            <span className="text-right">
-                                $ 100
-                            </span>
-                            
-                            {/*  */}
-                            <span className="text-2xl mt-10">Total: </span>
-                            <span className="text-right text-2xl mt-10 font-bold">
-                                $ 100
-                            </span>
-                        </div>
+                        <OrderSumary />
+                        
                         {/*  */}
                         <div className="mt-10 mb-5 w-full">
                             <Link

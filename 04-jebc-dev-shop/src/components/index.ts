@@ -1,4 +1,5 @@
-export * from "./cart/ui/ProductsInCart";
+export * from "./cart/ui/order-sumary/OrderSumary";
+export * from "./cart/ui/products-in-cart/ProductsInCart";
 export * from "./checkout/checkout-item/CheckoutItem";
 export * from "./product/quantity-selector/QuantitySelector";
 export * from "./product/size-selector/SizeSelector";

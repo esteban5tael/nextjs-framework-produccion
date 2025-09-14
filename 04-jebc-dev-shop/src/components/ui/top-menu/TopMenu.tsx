@@ -6,9 +6,7 @@ import { useEffect, useState } from "react";
 import { IoSearchOutline, IoCartOutline } from "react-icons/io5";
 export const TopMenu = () => {
     const openSideMenu = useUIStore((state) => state.openSideMenu);
-    const totalItemsInCart = useCartStore((state) =>
-        state.getTotalItems()
-    );
+    const itemsInCart = useCartStore((state) => state.itemsInCart);
     const [loader, setLoader] = useState<boolean>(false);
     useEffect(() => {
         setLoader(true);
@@ -68,12 +66,15 @@ export const TopMenu = () => {
 
                 <Link
                     className="hover:bg-gray-700 p-1 rounded-md transition-all"
-                    href={"/cart"}
+                    href={
+                        ((itemsInCart===0)&& loader) ? "/empty" :
+                        "/cart"
+                    }
                 >
                     <div className="relative">
-                        {loader && totalItemsInCart > 0 && (
-                            <span className="absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-blue-700">
-                                {totalItemsInCart}
+                        {loader && itemsInCart > 0 && (
+                            <span className="absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-blue-700 animate-pulse">
+                                {itemsInCart}
                             </span>
                         )}
                         <IoCartOutline className={"w-5 h-5"} />
