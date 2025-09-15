@@ -27,7 +27,7 @@ async function main(): Promise<void> {
             {
                 name: "Normal User",
                 email: "user@user.com",
-                password:bcrypt.hashSync( "user123"), 
+                password:bcrypt.hashSync( "user1234"), 
                 role: "user",
             },
         ];

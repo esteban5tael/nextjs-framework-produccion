@@ -1,7 +1,8 @@
 "use client";
-import { useUIStore } from "@/store";
-import clsx from "clsx";
+
 import Link from "next/link";
+import clsx from "clsx";
+import { useEffect, useState } from "react";
 import {
     IoCloseOutline,
     IoLogInOutline,
@@ -12,14 +13,42 @@ import {
     IoShirtOutline,
     IoTicketOutline,
 } from "react-icons/io5";
+import { useUIStore } from "@/store";
+import { useSession, signOut } from "next-auth/react";
+
 const optionMenuItemClasses: string =
     "flex items-center  p-2 rounded transition-all hover:text-blue-400 hover:bg-gray-800 mb-2";
 export const SideMenu = () => {
     const isSideMenuOpen = useUIStore(
         (state) => state.isSideMenuOpen
     );
-    
+
     const closeSideMenu = useUIStore((state) => state.closeSideMenu);
+
+    const { data: session, update } = useSession();
+    const [isAuthenticated, setIsAuthenticated] = useState(
+        !!session?.user
+    );
+    const [isAdmin, setIsAdmin] = useState(
+        session?.user?.role === "admin"
+    );
+
+    // Forzar actualización cuando cambie la sesión
+    useEffect(() => {
+        setIsAuthenticated(!!session?.user);
+        setIsAdmin(session?.user?.role === "admin");
+    }, [session?.user]);
+
+    // Refrescar la sesión cuando se abre el menú
+    useEffect(() => {
+        if (isSideMenuOpen) {
+            update().then(() => {
+                setIsAuthenticated(!!session?.user);
+                setIsAdmin(session?.user?.role === "admin");
+            });
+        }
+    }, [isSideMenuOpen, update, session?.user]);
+
     return (
         <div>
             {/* Background Black */}
@@ -28,23 +57,22 @@ export const SideMenu = () => {
             )}
 
             {isSideMenuOpen && (
-                <div className="fade-in fixed top-0 left-0 w-screen h-screen backdrop-filter backdrop-blur-sm z-10"
-                onClick={() => closeSideMenu()}
+                <div
+                    className="fade-in fixed top-0 left-0 w-screen h-screen backdrop-filter backdrop-blur-sm z-10"
+                    onClick={() => closeSideMenu()}
                 ></div>
             )}
             {/* Background Blur */}
 
             {/* Menu */}
             <nav
-                //todo: efecto slide
-                className={
-                    clsx("fixed p-5 right-0 top-0 w-[300] h-screen bg-gradient-to-b from-blue-900/80 via-blue-900/60 to-gray-900/90 backdrop-filter backdrop-blur-sm shadow-2xl transform transition-all duration-300 ease-in-out z-20",
-                        {
-                            "translate-x-full": !isSideMenuOpen,
-                            "translate-x-0": isSideMenuOpen,
-                        }
-                    )
-                }
+                className={clsx(
+                    "fixed p-5 right-0 top-0 w-[300] h-screen bg-gradient-to-b from-blue-900/80 via-blue-900/60 to-gray-900/90 backdrop-filter backdrop-blur-sm shadow-2xl transform transition-all duration-300 ease-in-out z-20",
+                    {
+                        "translate-x-full": !isSideMenuOpen,
+                        "translate-x-0": isSideMenuOpen,
+                    }
+                )}
             >
                 <IoCloseOutline
                     className="absolute top-5 right-5 text-white hover:text-blue-300 cursor-pointer"
@@ -67,42 +95,94 @@ export const SideMenu = () => {
                 {/* Opciones del menu */}
                 <div className="mt-10"></div>
 
-                <Link className={`${optionMenuItemClasses}`} href="/">
-                    <IoPersonOutline size={30} />
-                    <span className="ml-3 text-xl">Perfíl</span>
-                </Link>
+                {isAuthenticated && (
+                    <>
+                        <Link
+                            className={`${optionMenuItemClasses}`}
+                            href="/"
+                            onClick={() => closeSideMenu()}
+                        >
+                            <IoTicketOutline size={30} />
+                            <span className="ml-3 text-xl">
+                                Ordenes
+                            </span>
+                        </Link>
+                        <Link
+                            className={`${optionMenuItemClasses}`}
+                            href="/profile"
+                            onClick={() => closeSideMenu()}
+                        >
+                            <IoPersonOutline size={30} />
+                            <span className="ml-3 text-xl">
+                                Perfíl
+                            </span>
+                        </Link>
 
-                <Link className={`${optionMenuItemClasses}`} href="/">
-                    <IoTicketOutline size={30} />
-                    <span className="ml-3 text-xl">Ordenes</span>
-                </Link>
+                        <button
+                            className={`${optionMenuItemClasses} w-full hover:cursor-pointer`}
+                            onClick={async () => {
+                                closeSideMenu();
+                                setIsAuthenticated(false); // Actualizar inmediatamente
+                                await signOut({ redirect: true }); // Usar signOut de NextAuth
+                            }}
+                        >
+                            <IoLogOutOutline size={30} />
+                            <span className="ml-3 text-xl">
+                                Salir
+                            </span>
+                        </button>
+                    </>
+                )}
 
-                <Link className={`${optionMenuItemClasses}`} href="/auth/login">
-                    <IoLogInOutline size={30} />
-                    <span className="ml-3 text-xl">Ingresar</span>
-                </Link>
-
-                <Link className={`${optionMenuItemClasses}`} href="/">
-                    <IoLogOutOutline size={30} />
-                    <span className="ml-3 text-xl">Salir</span>
-                </Link>
+                {!isAuthenticated && (
+                    <Link
+                        className={`${optionMenuItemClasses}`}
+                        href="/auth/login"
+                        onClick={() => closeSideMenu()}
+                    >
+                        <IoLogInOutline size={30} />
+                        <span className="ml-3 text-xl">Ingresar</span>
+                    </Link>
+                )}
 
                 <div className="w-full h-px my-10 bg-gray-950"></div>
 
-                <Link className={`${optionMenuItemClasses}`} href="/">
-                    <IoShirtOutline size={30} />
-                    <span className="ml-3 text-xl">Products</span>
-                </Link>
+                {isAdmin && (
+                    <>
+                        <Link
+                            className={`${optionMenuItemClasses}`}
+                            href="/"
+                            onClick={() => closeSideMenu()}
+                        >
+                            <IoShirtOutline size={30} />
+                            <span className="ml-3 text-xl">
+                                Products
+                            </span>
+                        </Link>
 
-                <Link className={`${optionMenuItemClasses}`} href="/">
-                    <IoTicketOutline size={30} />
-                    <span className="ml-3 text-xl">Ordenes</span>
-                </Link>
+                        <Link
+                            className={`${optionMenuItemClasses}`}
+                            href="/"
+                            onClick={() => closeSideMenu()}
+                        >
+                            <IoTicketOutline size={30} />
+                            <span className="ml-3 text-xl">
+                                Ordenes
+                            </span>
+                        </Link>
 
-                <Link className={`${optionMenuItemClasses}`} href="/">
-                    <IoPeopleOutline size={30} />
-                    <span className="ml-3 text-xl">Usuarios</span>
-                </Link>
+                        <Link
+                            className={`${optionMenuItemClasses}`}
+                            href="/"
+                            onClick={() => closeSideMenu()}
+                        >
+                            <IoPeopleOutline size={30} />
+                            <span className="ml-3 text-xl">
+                                Usuarios
+                            </span>
+                        </Link>
+                    </>
+                )}
             </nav>
         </div>
     );
