@@ -17,6 +17,7 @@ export async function authenticate(
     
     await signIn('credentials', formData);
 
+
   } catch (error) {
 
     if (error instanceof AuthError) {
@@ -28,5 +29,13 @@ export async function authenticate(
       }
     }
     throw error;
+  }
+}
+
+export const login =async(email:string, password:string)=>{
+  try {
+    await signIn('credentials', {email, password, redirect: false});
+  } catch (error) {
+    console.log(error);
   }
 }
